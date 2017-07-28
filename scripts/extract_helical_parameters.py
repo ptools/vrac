@@ -1,5 +1,19 @@
 #!/usr/bin/env python
 
+"""
+extract_helical_parameters.py : processes the output of ptools/attract docking
+simulations of two identical protein monomers and outputs the helical
+parameters of the filament that would result from the regular self-association 
+of the monomer according to the binding geometry defined by each docking output.
+
+Usage: extract_helical_parameters.py out.att receptor.red
+
+Each line of the standard output contains the translation and rotation numbers
+associated to the docking result, the number of monoers per turn, the pitch in
+Angstroem, the direction of helix rotation and the pairwise energy between
+successive monomers  
+"""
+
 #exemple:
 #python separateEnerInDockingResult.py ../cgPyAttract/1A74_bound-prot.red ../shortDNA/dna.3pb.red ../dockingPyAttract/1A74_3pb.att
 
@@ -25,7 +39,7 @@ def rigidXMat44(rigid, mat):
 
 
 nargs = len(sys.argv)
-if nargs < 2:
+if nargs < 3:
     print "usage: exctractHelicoidalParameters.py out.att receptor.red"
     raise SystemExit
 

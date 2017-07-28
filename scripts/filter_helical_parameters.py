@@ -1,5 +1,15 @@
 #!/usr/bin/env python
 
+"""
+filter_helical_parameters.py : filters the output of the script
+extract_helical_parameters.py (that processes docking output of two identical
+protein monomers) using helical geometry criteria such as a range of pitch values, 
+a range of the number of monomers per turn, a rotation direction.
+
+Usage: filter_helical_parameters.py helical_parameter_file.py 
+see filter_helical_parameters.py -h for more details
+"""
+
 import sys
 import re
 from ptools import *

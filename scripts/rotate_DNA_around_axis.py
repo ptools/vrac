@@ -1,3 +1,13 @@
+#!/usr/bin/env python
+
+"""
+rotate_dna_around_axis.py: used when a DNA has been generated on a non-straight
+axis; in that case, the present script allows generating a DNA structure around 
+an axis with given rotation value for the first base pair.
+
+Usage: rotate_dna_around_axis.py axis.pdb DNA.pdb angle(degree) 
+"""
+
 from ptools import *
 import math
 import sys
@@ -77,14 +87,12 @@ def rotateDNA(dna,axislist,angle):
     ABrotate( model.CopyAtom(0).GetCoords(), model.CopyAtom(1).GetCoords(), bp, math.radians(angle) )
     new = new + bp
     return new
-    #python screwOptimisation.py ../1QRV_93.axis ../1QRV_93.candidate ../../cgPyAttract/1QRV_bound-prot.red
-##python screwOptimisation.py ../3CRO_93.dots.3clust.axis ../3CRO_93.dots.3clust.candidate.pdb ../../cgPyAttract/3CRO_bound-prot.red >toto.pdb                           python screwOptimisation.py ../3CRO_93.dots.3clust.axis 3CRO_test.pdb ../../cgPyAttract/3CRO_bound-prot.red >toto.pdb   
         
 
 def main():
     nargs = len(sys.argv)
     if nargs < 3:
-        print "usage: makeCandidate.py axis DNA.pdb angle(degree)"
+        print "usage: rotate_dna_around_axis.py axis DNA.pdb angle(degree)"
         raise SystemExit
 
     line = readline(sys.argv[1])

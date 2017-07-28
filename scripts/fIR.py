@@ -1,6 +1,21 @@
 #!/usr/bin/env python
 # Chantal and Johann added Feb 2012
 
+""" 
+fIR: computes the fraction of interface residues for each of two protein components of complex1 that also belong to the interface of complex2, where complex1 and complex2 represent different binding geometries of the same two proteins, receptor and ligand; 
+in the present script, the receptor is common to the two complexes, the ligand
+occupies two different geomtries, ligand1.pdb and ligand2.pdb; complex1 is
+generally taken as the native complex, but the script can also be used to
+compare two different binding modes.
+The script only functions for coarse-grained protein structures, it can easily be adapted to atomic structures.
+
+Usage: python fIR.py receptor.pdb ligand1.pdb ligand2.pdb 
+
+Two values are output (standard output): the fIR value for the receptor and the fIR value for the ligand
+""" 
+
+# TODO: "atomic" case (smaller cutoff value for AttractPairList)
+
 from ptools import *
 import sys
 
@@ -69,7 +84,7 @@ def fpib(receptor, ligcrist, ligprobe):
 def main():
 
     if len(sys.argv) < 4 : 
-        print "usage:  fpib.py receptor lig_ref lig"
+        print "usage:  fIR.py receptor lig_ref lig"
 	sys.exit(1)
     recname = sys.argv[1]
     ligname = sys.argv[2]

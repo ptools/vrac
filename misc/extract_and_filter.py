@@ -1,5 +1,16 @@
 #!/usr/bin/env python
 
+""
+extractAndFilter.py : used when docking a protein structure on itself; 
+reprocesses the Attract output file to compute the screw parameters 
+associated to each generated binding geometry and stores them in a new 
+output file (standard output);
+filters the results by eliminating the geometries that lead to non-topologically
+acceptable helices (interpenetration between monomers of adjacent helix turns) 
+and optimizes quasi-ring geometries to ring geometries; 
+see Boyer et al. PloS One 2015,10,e0116414 for more information. 
+""
+
 import sys
 import re
 from ptools import *
@@ -182,13 +193,8 @@ def filtrextremities(prot,hpi,eneref,index1,index2):
 	ligu.ABrotate( hp.point, hp.point + hp.unitVector, hp.angle )
 	ligu.Translate( hp.unitVector * hp.normtranslation )
 
-	#ligd.ABrotate( hp.point, hp.point + hp.unitVector, -1*hp.angle )
-	#ligd.Translate(-1* hp.unitVector * hp.normtranslation )
-
 	eu = enerk(prot,ligu,1,surreal(9999))
-	#ed = enerk(prot,ligd,1,surreal(9999))
         print "#FI%5d%6d%10.2f%10.2f" %(index1,index2,eneref, eu)
-	#if max(eu,ed) > 1000.:
 	if eu > 100.:
 		return 1
 	else:
@@ -208,6 +214,7 @@ if nargs < 2:
     raise SystemExit
 
 rec = AttractRigidbody(sys.argv[2])
+#TODO: enlever recaugm; ref1...ref4 as arguments, n'en garder que 2 (un seul binding mode de reference), documenter 
 recaugm = AttractRigidbody("rez4_augm.red")
 ref1 = AttractRigidbody("4_z4a-u.red")
 ref2 = AttractRigidbody("4_z4a-d.red")
@@ -220,8 +227,7 @@ radmax = rec.Radius()
 
 filin = open(sys.argv[1], 'r')
 
-#emin = 0.
-#emin = -51.85
+#TODO: extract emin from the attract output file
 emin = -35.
 
 # default value 20 RT (TODO: enter as argument)
@@ -244,9 +250,6 @@ for ligne in filin :
 		#utiliser matrixquit
                 spl= liste[0].split()
 		ener = float(spl[3])
-		#if ener < emin:
-		#	emin = ener
-		#TODO: refiltrer la sortie en energie !!!!
 
 		if (ener - emin) < deltaE:
 

@@ -12,10 +12,8 @@ import datetime
 def ener(rec,lig):
 	forcefield=AttractForceField1("aminon.par",surreal(9999))
 	forcefield.AddLigand(rec)
-	forcefield.AddLigand(lig)
-	
+	forcefield.AddLigand(lig)	
 	pl = AttractPairList(rec, lig,surreal(9999))
-#	pl = AttractPairList(rec, lig,surreal(144))
 	ener = forcefield.nonbon8(rec,lig,pl)
 	return ener
 
@@ -53,7 +51,6 @@ p=rec.FindCenter ()
 q=ligori.FindCenter ()
 
 print "Original binding mode:"
-#print "dist CM rec lig = ", math.sqrt((q.x-p.x)**2 + (q.y-p.y)**2 + (q.z-p.z)**2)
 
 oldener= ener(rec,ligori)
 print "Energy rec lig initial: ", oldener
@@ -121,19 +118,8 @@ for k in xrange(2):
 
 	raynew = rayon*math.sin(hpori.angle/2)/math.sin(angnew/2)
 	pt0new = p + raynew * vectn
-
-#	print "TEST pt0new: ",
-#	testax = (pt0new - pt0)/Norm(pt0new - pt0)
-#	print ScalProd(testax,axe)
 		
 	print "\nrayon ori ", rayon," new rayon ", raynew
-#	print "new point ",pt0new
-
-	#beta = math.atan(hpori.normtranslation*2*math.pi/(2*rayon*hpori.angle))
-	#print "beta ", beta*180./math.pi, "tg(beta) ", math.tan(beta)
-	#axn = math.cos(beta) * axe + -math.sin(beta) * vectn/Norm(vectn)
-	#axn = axn / Norm(axn)
-	#print axe, axn
 	
 	axn=Coord3D(axe)
 
@@ -151,8 +137,6 @@ for k in xrange(2):
 	
 	eninit = ener8(rec,pt0new,axn, nk)
 	print "mono ",nk, "energy with rec:", eninit
-	
-	#quit()
 
 #---------------------- MC
 	now = datetime.datetime.now()

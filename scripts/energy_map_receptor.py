@@ -1,5 +1,6 @@
 #!/bin/usr/env python
 
+###### to be replaced by Charles' script
 
 from ptools import *
 import sys 
@@ -32,9 +33,6 @@ def newlist(molecule):
         liste[i] = 0
         
     return liste
-
-
-            
 
 
 
